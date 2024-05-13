@@ -1,0 +1,29 @@
+{% extends 'base.html.njk' %}
+
+{% block body %}
+
+  <h1> Welcome, {{ name }}</h1>
+  <!-- I loop here to fill my fossil list. I played around with object / key looping, hence the vestigial "trait" -->
+    {% for trait, fossil in fossils  %}
+    <div class="fossil-div">
+       <h3>{{ name }}, this is a fossil of {{ fossil.name }}</h3>
+      <h2>Liked {{ fossil.num_likes }} times.</h2>
+      <img src="{{ fossil.img }}" />
+    </div>
+    {%endfor%}
+
+  <h2> Contribute by liking fossils! </h2>
+  <div>
+    <form action ="/like-fossil" method = post>
+      <select name="choice"> 
+      <!-- I loop here to fill my select with options -->
+       {% for trait, fossil in fossils  %}
+        <option value={{ fossil.id }}> {{ fossil.name }}</option>
+       {%endfor%}
+      </select>
+      <div>
+        <input type="submit" />
+      </div>
+    </form>
+  </div>
+{% endblock %}
